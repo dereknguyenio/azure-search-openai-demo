@@ -1,0 +1,38 @@
+name: "AZD Deploy Workflow"
+concurrency: azd_deploy
+
+on: 
+  workflow_dispatch:
+  push:
+    branches:
+      - main  # Replace with your branch if different
+  pull_request:
+    branches:
+      - main  # Replace with your branch if different
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  build-and-deploy:
+    name: "Build and deploy to Azure"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+      - name: Install Azure DevOps CLI
+        run: |
+          curl -fsSL https://aka.ms/install-azd.sh | bash
+      - name: Log into Azure using service principal
+        run: |
+          azd login --service-principal --client-id ${{ secrets.CLIENT_ID }} --client-secret ${{ secrets.CLIENT_SECRET }} --tenant-id ${{ secrets.TENANT_ID }}
+          azd up
