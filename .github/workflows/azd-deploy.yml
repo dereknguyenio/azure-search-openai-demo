@@ -34,5 +34,6 @@ jobs:
           curl -fsSL https://aka.ms/install-azd.sh | bash
       - name: Log into Azure using service principal
         run: |
-          azd login --service-principal --client-id ${{ secrets.CLIENT_ID }} --client-secret ${{ secrets.CLIENT_SECRET }} --tenant-id ${{ secrets.TENANT_ID }}
+          azd auth login --client-id ${{ secrets.CLIENT_ID }} --client-secret ${{ secrets.CLIENT_SECRET }} --tenant-id ${{ secrets.TENANT_ID }}
           azd up
+
