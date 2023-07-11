@@ -37,5 +37,4 @@ jobs:
       - name: Log into Azure and Initialize Project
         run: |
           azd auth login --client-id ${{ secrets.CLIENT_ID }} --client-secret ${{ secrets.CLIENT_SECRET }} --tenant-id ${{ secrets.TENANT_ID }}
-          azd init -t azure-search-openai-demo
           yes | azd up --environment dkndev
