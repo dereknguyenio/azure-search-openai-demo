@@ -38,5 +38,5 @@ jobs:
       - name: Log into Azure using service principal
         run: |
           azd auth login --client-id ${{ secrets.CLIENT_ID }} --client-secret ${{ secrets.CLIENT_SECRET }} --tenant-id ${{ secrets.TENANT_ID }}
-          azd up --environment dkndev
+          yes | azd up --environment dkndev
 
