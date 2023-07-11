@@ -36,4 +36,6 @@ jobs:
         run: |
           azd auth login --client-id ${{ secrets.CLIENT_ID }} --client-secret ${{ secrets.CLIENT_SECRET }} --tenant-id ${{ secrets.TENANT_ID }}
           azd up
+        env:
+          AZURE_ENV_NAME: 'dkndev'
 
