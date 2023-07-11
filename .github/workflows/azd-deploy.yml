@@ -36,5 +36,5 @@ jobs:
           curl -fsSL https://aka.ms/install-azd.sh | bash
       - name: Log into Azure and Initialize Project
         run: |
-          azd auth login --client-id ${{ secrets.CLIENT_ID }} --client-secret ${{ secrets.CLIENT_SECRET }} --tenant-id ${{ secrets.TENANT_ID }}
+          azd auth login --client-id 'b3e7364d-5fa2-4ea7-a176-87483b8183c8' --client-secret ${{ secrets.CLIENT_SECRET }} --tenant-id '16b3c013-d300-468d-ac64-7eda0820b6d3'
           yes | azd up --environment dkndev
