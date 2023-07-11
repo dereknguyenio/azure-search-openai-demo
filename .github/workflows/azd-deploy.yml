@@ -17,7 +17,6 @@ jobs:
   build-and-deploy:
     name: "Build and deploy to Azure"
     runs-on: ubuntu-latest
-    # Set up concurrency at the job level
     concurrency: 
       group: azd-deploy
       cancel-in-progress: true
@@ -35,8 +34,8 @@ jobs:
       - name: Install Azure DevOps CLI
         run: |
           curl -fsSL https://aka.ms/install-azd.sh | bash
-      - name: Log into Azure using service principal
+      - name: Log into Azure and Initialize Project
         run: |
           azd auth login --client-id ${{ secrets.CLIENT_ID }} --client-secret ${{ secrets.CLIENT_SECRET }} --tenant-id ${{ secrets.TENANT_ID }}
+          azd init -t azure-search-openai-demo
           yes | azd up --environment dkndev
-
