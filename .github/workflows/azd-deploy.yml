@@ -1,5 +1,4 @@
 name: "AZD Deploy Workflow"
-concurrency: azd_deploy
 
 on: 
   workflow_dispatch:
@@ -18,6 +17,10 @@ jobs:
   build-and-deploy:
     name: "Build and deploy to Azure"
     runs-on: ubuntu-latest
+    # Set up concurrency at the job level
+    concurrency: 
+      group: azd-deploy
+      cancel-in-progress: true
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
@@ -35,7 +38,5 @@ jobs:
       - name: Log into Azure using service principal
         run: |
           azd auth login --client-id ${{ secrets.CLIENT_ID }} --client-secret ${{ secrets.CLIENT_SECRET }} --tenant-id ${{ secrets.TENANT_ID }}
-          azd up
-        env:
-          AZURE_ENV_NAME: 'dkndev'
+          azd up --environment dkndev --location southcentralus
 
